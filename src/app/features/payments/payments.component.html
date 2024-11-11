@@ -1,0 +1,58 @@
+<section class="flex-center fill-screen">
+    <div  id="payment-list" class="table_component">
+      <div>
+        <h1>{{user.name}}</h1>
+
+
+        
+        <!--CARREGANDO-->
+        <ng-container *ngIf="loading; else payment_details">
+          <span>Efetuados: <span class="loading-span">...</span> </span> 
+          <br/>
+          <span>Pendentes: <span class="loading-span">...</span> </span>
+        </ng-container>
+        <!--CARREGOU-->
+        <ng-template #payment_details>
+          <span>Efetuados: {{user.closed}} </span> 
+          <br/>
+          <span>Pendentes: {{user.open}}  </span>
+        </ng-template>
+
+      </div>
+
+
+      <table >
+        <thead>
+          <tr>
+            <th>Mês</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let month of months; let i = index">
+                <td>{{ month.name }}</td>
+                <!--CARREGANDO-->
+                <ng-container *ngIf="loading; else month_info">
+                  <td> <span class="loading-span">...</span></td>
+                  <td> <span class="loading-span">...</span></td>
+                </ng-container>
+                <!--CARREGOU-->
+                <ng-template #month_info>
+                  <td>  <!--EH_PENDENCIA-->
+                    <span *ngIf="month.closedAt; else month_closedAt" class="accept">EFETUADO</span>
+                    <ng-template #month_closedAt> <span class="reject">PENDENTE</span> </ng-template>
+                  </td>
+
+                  <td>  <!--GERAR_COBRANCA-->
+                    <span *ngIf="month.closedAt; else create_payment">{{month.closedAt}}</span>
+                    <ng-template #create_payment> <a href="{{month.name}}" target="_blank" rel="noopener noreferrer">fazer pix</a></ng-template>
+                  </td>
+                  
+                </ng-template>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
