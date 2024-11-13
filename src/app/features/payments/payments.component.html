@@ -40,15 +40,22 @@
                 </ng-container>
                 <!--CARREGOU-->
                 <ng-template #month_info>
-                  <td>  <!--EH_PENDENCIA-->
-                    <span *ngIf="month.closedAt; else month_closedAt" class="accept">EFETUADO</span>
-                    <ng-template #month_closedAt> <span class="reject">PENDENTE</span> </ng-template>
-                  </td>
+                  <ng-container *ngIf="month.closedAt; else month_stillOpen">
+                    <td> <span class="accept">EFETUADO</span></td>
+                    <td> {{month.closedAt}}</td>
+                  </ng-container>
 
-                  <td>  <!--GERAR_COBRANCA-->
-                    <span *ngIf="month.closedAt; else create_payment">{{month.closedAt}}</span>
-                    <ng-template #create_payment> <a href="{{month.name}}" target="_blank" rel="noopener noreferrer">fazer pix</a></ng-template>
-                  </td>
+
+
+
+                  <ng-template #month_stillOpen>
+                    <td> <span class="reject">PENDENTE</span> </td>
+                    <td>  <!--GERAR_COBRANCA-->
+                      <span *ngIf="month.pixUrl; else create_payment"> <a href="{{month.pixUrl}}" target="_blank" rel="noopener noreferrer">{{month.pixUrl}}</a></span>
+                      <ng-template #create_payment> <a href="{{month.name}}" target="_blank" rel="noopener noreferrer">gerar pix</a></ng-template>
+                    </td>
+                  </ng-template>
+
                   
                 </ng-template>
             </tr>
