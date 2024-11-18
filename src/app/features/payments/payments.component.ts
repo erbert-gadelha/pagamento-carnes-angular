@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID  } from '@angular/core';
 import { CommonModule, NgFor, NgIf, NgTemplateOutlet, isPlatformBrowser } from '@angular/common'; // Importação necessária para *ngFor e *ngIf
 //import { console } from 'inspector';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -46,37 +47,26 @@ export class PaymentsComponent implements OnInit {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      const DOMAIN = 'localhost';
-      const PORT = 5000;
-      //console.log("wesd");
 
       const funcao = async ()  => {
-
-        console.log("wasd");
-
         
-        //const request = new Request(`${DOMAIN}:${PORT}/api/payments`, {
-        const request = new Request(`http://localhost:5000/api/payments`, {
-          method: "GET",
-        });
+        const request = new Request(`${environment.apiUrl}/api/payments`, { method: "GET" });
+        try {  
+          const response = await fetch(request);
+          console.log(response.status);
+          const data = await response.json();
+          console.log(data);
+          this.months = data;
+          this.loading = false;
 
-        const response = await fetch(request);
-        console.log(response.status);
-        const data = await response.json();
-        console.log(data);
-        this.months = data;
-        this.loading = false;
+        } catch(e:any) {
+          console.log(e.message);
+          setTimeout(funcao, 2000)
+        }
 
       }
 
-      console.log("wesd");
       funcao();
-
-      
-      /*window.setInterval(() => {
-        console.log("loading", this.loading);
-        this.loading = !this.loading;
-      }, 1000)*/
 
     }
     
