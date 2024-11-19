@@ -1,42 +1,37 @@
 <section id="hotspot">
-  <!--
-  <a href="#calendar">
-    <span class="material-symbols-outlined"> calendar_month </span>
-    calendário
-  </a>
-  <a href="#">
-    <span class="material-symbols-outlined">
-      confirmation_number
-    </span>
-    carnês
-  </a>
-  <a href="#">
-    loren
-  </a>    
-  <a href="#">
-    ipsun
-  </a>-->
 
 
-  <a class="atalho" href="#calendar">
-    <span class="material-symbols-outlined"> calendar_month </span>
-    calendário
-  </a>
-  <app-navigate-to  path="/pagamentos">
-    <div class="atalho">
-      <span class="material-symbols-outlined">
-        confirmation_number
-      </span>
-      carnês
+  <div id="atalhos">
+
+    <div>
+      <a class="atalho" href="#calendar">
+        <span class="material-symbols-outlined"> calendar_month </span>
+        calendário
+      </a>
+      <app-navigate-to  class="atalho flex-center"  path="/pagamentos">
+        <div>
+          <span class="material-symbols-outlined">
+            confirmation_number
+          </span>
+          carnês
+    
+        </div>
+      </app-navigate-to>
 
     </div>
-  </app-navigate-to>
-  <a class="atalho" href="#">
-    loren
-  </a>    
-  <a class="atalho" href="#">
-    ipsun
-  </a>
+
+    <div>
+      <a class="atalho" href="#">
+        loren
+      </a>    
+      <a class="atalho" href="#">
+        ipsun
+      </a>
+    </div>
+
+  </div>
+
+
 </section>
   
   <section id="welcome">
@@ -47,10 +42,9 @@
         Entre em sua conta de usuário para que possa vizualisar seu <strong>histórico de pagamento</strong>, ou para ter acesso a <strong>novas cobranças</strong>.
       </p>
       
-    <app-navigate-to path="/entrar">
-      <p class="round-hiperlink">entrar</p>
-    </app-navigate-to>
-      
+      <app-navigate-to path="/entrar">
+        <p class="round-hiperlink">entrar</p>
+      </app-navigate-to>      
     </div>
   </section>
   

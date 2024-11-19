@@ -10,8 +10,9 @@
     "serve:ssr:pagamento-carnes-angular": "node dist/pagamento-carnes-angular/server/server.mjs",
 
     "build:github": "ng build --output-path docs --base-href /pagamento-carnes-angular/",
-    "deploy:github": "ngh --dir=docs"
+    "deploy:github": "ngh --dir=docs",
 
+    "gh-pages:deploy": "ng build --base-href \"https://erbert-gadelha.github.io/pagamento-carnes-angular/\" --deploy-url \"/pagamento-carnes-angular/\"; echo \"\n\nSubindo deploy na branch gh-pages:\"; sleep 1; npx angular-cli-ghpages --dir=dist/pagamento-carnes-angular"
 
   },
   "private": true,
