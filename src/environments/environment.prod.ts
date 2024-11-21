@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:5000' // URL da API para desenvolvimento
+    apiUrl: 'pagamento-carnes-production.up.railway.app'
   };
   
