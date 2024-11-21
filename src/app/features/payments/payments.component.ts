@@ -24,33 +24,24 @@ export class PaymentsComponent implements OnInit {
 
   public loading: boolean = true;
   public months:month[] = months_
+  public fetchPromise: any= null;
 
-  /*public months:month[] = [
-    { key:0,  name: 'janeiro',    closedAt: "25/03/2000", pixUrl: null},
-    { key:1,  name: 'fevereiro',  closedAt: "25/03/2000", pixUrl: null},
-    { key:2,  name: 'março',      closedAt: "25/03/2000", pixUrl: null},
-    { key:3,  name: 'abril',      closedAt: "25/03/2000", pixUrl: null},
-    { key:4,  name: 'maio',       closedAt: null,         pixUrl: "https://www.google.com"},
-    { key:5,  name: 'junho',      closedAt: null,         pixUrl: null},
-          
-    { key:6,  name: 'julho',      closedAt: null,         pixUrl: null},
-    { key:7,  name: 'agosto',     closedAt: null,         pixUrl: null},
-    { key:8,  name: 'setembro',   closedAt: null,         pixUrl: null},
-    { key:9,  name: 'outubro',    closedAt: null,         pixUrl: null},
-    { key:10, name: 'novembro',   closedAt: null,         pixUrl: null},
-    { key:11, name: 'dezembro',   closedAt: null,         pixUrl: null},
-  ]*/
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
 
 
   ngOnInit() {
-    console.log("apiUrl", environment.apiUrl);
     if (isPlatformBrowser(this.platformId)) {
 
-      const funcao = async ()  => {
+      const fetchApi = async (fetchAttempts:number) => {   
+        if(fetchAttempts-- < 0) {
+          this.fetchPromise = null;
+          console.warn("FailedToFetch: Número máximo de tentativas alcançado.");
+          return;
+        }
         
+
         const request = new Request(`${environment.apiUrl}/api/payments`, { method: "GET" });
         try {  
           const response = await fetch(request);
@@ -59,18 +50,26 @@ export class PaymentsComponent implements OnInit {
           console.log(data);
           this.months = data;
           this.loading = false;
+          this.fetchPromise = null;
+
 
         } catch(e:any) {
           console.log(e.message);
-          setTimeout(funcao, 2000)
+          this.fetchPromise = setTimeout(() => fetchApi(fetchAttempts), 2000);
         }
 
-      }
+      };
 
-      funcao();
+      let fetchAttempts = 5;
+      this.fetchPromise = fetchApi(fetchAttempts);
 
     }
     
+  }
+
+  ngOnDestroy() {
+    if(this.fetchPromise)
+      clearInterval(this.fetchPromise);
   }
 
 }
