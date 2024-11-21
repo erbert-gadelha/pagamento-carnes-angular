@@ -45,22 +45,27 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
+              "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "aot": true
             },
             "development": {
               "optimization": false,
+              "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true,
-              "aot": false,
-              "vendorChunk": true,
-              "buildOptimizer": false
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }]
             }
           },
           "defaultConfiguration": "production"

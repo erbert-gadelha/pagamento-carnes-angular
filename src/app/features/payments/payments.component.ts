@@ -46,6 +46,7 @@ export class PaymentsComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log("apiUrl", environment.apiUrl);
     if (isPlatformBrowser(this.platformId)) {
 
       const funcao = async ()  => {
