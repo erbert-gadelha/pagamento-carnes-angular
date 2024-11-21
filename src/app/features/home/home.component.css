@@ -66,38 +66,32 @@ section {
   }
   
   #atalhos {
-    /*display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    background-color: red;
-    width: fit-content;
-    & > div {
-      display: inline-flex;
-      background-color: blue;
-    }*/
+    --gap: 4px;
 
     width: 100%;
-    background-color: red;
+    padding: 0 4px;
     display: flex;
     flex-wrap: wrap;
-    /*display: grid;*/
-    /*grid-auto-columns: minmax(200px, 300px);
-    grid-auto-columns: 100px;*/
-    /*grid-template-columns: 200px 200px;*/
+    gap: var(--gap);
+    margin: 8px 0;
+    
 
     & > * {
       display: flex;
+      gap: var(--gap);
       flex-wrap: wrap;
       flex: 1;
-      outline: 5px solid green;
-      max-width: 400px;
+      max-width: 420px;
 
       & > * {
         flex: 1;
-        outline: 5px solid blue;
         min-width: 150px;
-
       }
+    }
+
+    #navigate-to-content {
+      color: var(--thirdy-color);
+      display: flex;
     }
   }
   

@@ -18,8 +18,8 @@ export class PaymentsComponent implements OnInit {
 
   public user: userInfo = {
     name: "null",
-    closed: 1,
-    open: 2,
+    closed: null,
+    open: null,
   };
 
   public loading: boolean = true;
@@ -48,7 +48,9 @@ export class PaymentsComponent implements OnInit {
           console.log(response.status);
           const data = await response.json();
           console.log(data);
-          this.months = data;
+          this.months = data?.payments;
+          this.user.closed =  data?.closed;
+          this.user.open =  data?.open;
           this.loading = false;
           this.fetchPromise = null;
 

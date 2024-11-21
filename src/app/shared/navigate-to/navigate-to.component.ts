@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,19 +8,22 @@ import { Router } from '@angular/router';
   templateUrl: './navigate-to.component.html',
   styleUrl: './navigate-to.component.css',
 })
-export class NavigateToComponent implements OnInit{
-
-  @Input() path: string = '/';
-  private router = inject(Router);
+export class NavigateToComponent  implements AfterViewInit {
 
   constructor() { }
 
-  public handleClick() {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-    this.router.navigate([this.path]);
-  }
+  @Input() public path: string = '/';
+  @ViewChild('myNavigateTo') myNavigateTo: ElementRef | any;
+  private router = inject(Router);
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.myNavigateTo.nativeElement.addEventListener("click", (event:any) => {
+      event.preventDefault();
+      console.log("wasd");
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      this.router.navigate([this.path]);
+    })
+
   }
 
 
