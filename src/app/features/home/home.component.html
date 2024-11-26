@@ -36,14 +36,31 @@
   <section id="welcome">
     <img src="https://c.files.bbci.co.uk/99EB/production/_124130493_gettyimages-1305781612.jpg" alt="">
     <div>
-      <h2>Olá, usuário</h2>
-      <p>
-        Entre em sua conta de usuário para que possa vizualisar seu <strong>histórico de pagamento</strong>, ou para ter acesso a <strong>novas cobranças</strong>.
-      </p>
+
+
+      <ng-container *ngIf="!user; else welcome_message">
+        <h2>Olá, usuário</h2>
+        <p>
+          Entre em sua conta de usuário para que possa vizualisar seu <strong>histórico de pagamento</strong>, ou para ter acesso a <strong>novas cobranças</strong>.
+        </p>
+
+
+        <app-navigate-to path="/entrar">
+          <p class="round-hiperlink">entrar</p>
+        </app-navigate-to>     
+      </ng-container>
       
-      <app-navigate-to path="/entrar">
-        <p class="round-hiperlink">entrar</p>
-      </app-navigate-to>      
+      <ng-template #welcome_message>
+        <h2>Olá, {{user?.name}}</h2>
+        <p>
+          Entre em sua conta de usuário para que possa vizualisar seu <strong>histórico de pagamento</strong>, ou para ter acesso a <strong>novas cobranças</strong>.
+        </p>
+
+        <app-navigate-to path="/pagamentos">
+          <p class="round-hiperlink">pagamentos</p>
+        </app-navigate-to>     
+      </ng-template>
+
     </div>
   </section>
   

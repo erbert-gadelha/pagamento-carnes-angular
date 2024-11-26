@@ -9,11 +9,9 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/hello', methods=['GET'])
+@app.route('/status', methods=['GET'])
 def hello_world():
-    return jsonify({
-        "message": "Hello, World!"
-        })
+    return "Container is up."
 
 @app.route('/api/payments', methods=['GET'])
 def get_payments ():

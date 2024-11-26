@@ -8,6 +8,7 @@ article {
     border: black 1px solid;
     border-radius: 8px;
     overflow: hidden;
+    width: 100%;
     max-width: 480px;
     gap: 4px;
     padding: 32px;

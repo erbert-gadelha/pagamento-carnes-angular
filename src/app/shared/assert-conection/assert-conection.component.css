@@ -1,0 +1,203 @@
+#myAssertConnection {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    padding: 16px 32px;
+    padding-top: 24px;
+    border-radius: 16px;
+    border: gray solid 1px;
+    overflow: hidden;
+
+    display: none;
+    margin: 16px -100%;
+    
+    flex-direction: row;
+    gap: 8px;
+
+
+
+    &::after {
+        content: "";
+        width: 100%;
+        height: 16px;
+        background-color: var(--thirdy-color);
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+#attempts {
+    text-align: end;
+    width: 32px;
+}
+
+
+.loading, .accept {
+    pointer-events: none;
+}
+
+.loading {
+
+    --diameter: 16px;
+    --border: 8px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 0 4px;
+    width: var(--diameter);
+    height: var(--diameter);
+    border-radius: 100%;
+    position: relative;
+
+
+    margin: 4px;
+
+
+
+    &::after {
+        content: "";
+        --size: calc( var(--diameter) + var(--border));
+        width: var(--size);
+        height: var(--size);
+        background-color: gray;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: inherit;
+        z-index: -1;
+        clip-path: inset(0% 50% 0% 00%);
+
+        animation: rotate 5s linear infinite;
+
+    }
+}
+
+.accept {
+
+    background-color: #6dd783;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 0 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    position: relative;
+
+    &::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);        
+        z-index: 1;
+        clip-path: polygon(28% 38%, 41% 53%, 75% 24%, 86% 38%, 40% 78%, 15% 50%);
+
+    }
+
+
+
+}
+
+.give-up {
+    --diameter: 16px;
+    --border: 8px;
+    background-color: #cd3f4d;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 0 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    position: relative;
+
+    cursor: pointer;
+
+
+    &:hover {
+        background-color: gray;
+
+        &::after {
+            content: "tentar novamente";
+            background-color: black;
+            color: white;
+
+            font-weight: 500;
+
+            border-radius: 8px;
+            padding: 0 16px;
+
+
+
+            position: absolute;
+            width: auto;
+            height: auto;
+            top: 0;
+            right: 120%;
+            white-space: nowrap;
+        }
+    }
+
+    &::before {
+        content: "";
+        width: 60%;
+        height: 60%;
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+        clip-path: polygon(
+          25% 0%,   /* Top-left diagonal */
+          50% 25%, 
+          75% 0%,   /* Top-right diagonal */
+          100% 25%, 
+          75% 50%,  /* Middle-right */
+          100% 75%, 
+          75% 100%, /* Bottom-right diagonal */
+          50% 75%, 
+          25% 100%, /* Bottom-left diagonal */
+          0% 75%, 
+          25% 50%, 
+          0% 25%    /* Middle-left */
+        );
+
+    }
+}
+
+
+
+.fade-in {
+    animation: fadeIn 1s ease-out forwards;
+    display: flex !important;
+}
+
+.fade-out {
+    animation: fadeOut 1.5s ease-in forwards;
+}
+
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    } to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+
+@keyframes fadeIn {
+    from {
+        margin: 16px -100%;
+    } to {
+        margin: 16px 16px;
+    }    
+}
+
+@keyframes fadeOut {
+    from {
+        margin: 16px 16px;
+    } to {
+        margin: 16px -100%;
+        display: none;
+    }    
+}

@@ -19,7 +19,6 @@ export class NavigateToComponent  implements AfterViewInit {
   ngAfterViewInit(): void {
     this.myNavigateTo.nativeElement.addEventListener("click", (event:any) => {
       event.preventDefault();
-      console.log("wasd");
       window.scrollTo({ top: 0, behavior: 'instant' })
       this.router.navigate([this.path]);
     })

@@ -1,13 +1,17 @@
 <article class='fill-screen flex-center'>
-    <form id="form-login" action="/api/login" method="post">
+    
+    <form id="form-login" #myform="ngForm" (ngSubmit)="onSubmit(myform)">
         <label for="login">Usuário</label>
-        <input id="login" name="login" type="text" placeholder="Usuário"/>
+        <input id="login" name="login" type="text" placeholder="Usuário" [(ngModel)]="user.login"/>
+
+
         <label for="password">Senha</label>
         <div>
-            <input id="password" name="password" type="password" placeholder="Senha"/>
+            <input id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="user.password"/>
             <button id="show-password" class="material-symbols-outlined"type="button" onClick="foo()">visibility</button>
         </div>
-        <span id="form-warn">* em caso de não lembrar de seu usuário e senha, entre em contato com o mantedor do site</span>
+        <span #formWarn id="form-warn">{{loginWarn}}</span>
         <input type="submit" value="Entrar"/>
     </form>
+      
   </article>
