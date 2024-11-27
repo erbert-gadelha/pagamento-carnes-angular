@@ -1,18 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 //  SHARED
 import { HeaderComponent } from "./shared/header/header.component";
-import { NavigateToComponent } from "./shared/navigate-to/navigate-to.component";
-import { AssertConectionComponent } from "./shared/assert-conection/assert-conection.component";
-//  FEATURES
-import { HomeComponent } from "./features/home/home.component";
-import { LoginComponent } from "./features/login/login.component";
-import { PaymentsComponent } from "./features/payments/payments.component";
+import { AssertConnectionComponent } from "./shared/assert-connection/assert-connection.component";
+import { UserModel } from './model/user.model';
+import { ServerService } from './service/server.service';
+import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HomeComponent, HeaderComponent, LoginComponent, NavigateToComponent, PaymentsComponent, AssertConectionComponent],
+  imports: [RouterOutlet, HeaderComponent, AssertConnectionComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

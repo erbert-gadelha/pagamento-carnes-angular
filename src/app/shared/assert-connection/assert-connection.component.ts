@@ -1,24 +1,40 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
+import { UserModel } from '../../model/user.model';
+import { UserService } from '../../service/user.service';
+import { ServerService } from '../../service/server.service';
 @Component({
-  selector: 'app-assert-conection',
+  selector: 'app-assert-connection',
   standalone: true,
   imports: [],
-  templateUrl: './assert-conection.component.html',
-  styleUrl: './assert-conection.component.css'
+  templateUrl: './assert-connection.component.html',
+  styleUrl: './assert-connection.component.css'
 })
-export class AssertConectionComponent implements AfterViewInit {
+export class AssertConnectionComponent implements AfterViewInit {
 
   @ViewChild('serverStatus') serverStatus: ElementRef | any;
   @ViewChild('myAssertConnection') myAssertConnection: ElementRef | any;
   public attempts:string|any;
 
+
+  private async _fetchUser() {    
+    const savedInfo:UserModel|null = UserService.getUser();
+    UserService.setUser(savedInfo);
+
+    const fetchedInfo:UserModel|null = await ServerService.aboutMe();
+    if(savedInfo?.id != fetchedInfo?.id)
+      UserService.setUser(fetchedInfo);
+  }
+
+  ngOnInit(): void {
+    this._fetchUser();
+  }
+
   ngAfterViewInit(): void {
     const delayMilliseconds:number = 2000;
     const limit:number = 10;
     let attempt:number = 0;
-
 
     const request = new Request(
       `${environment.apiUrl}status`, {
@@ -36,16 +52,13 @@ export class AssertConectionComponent implements AfterViewInit {
         // do nothing
       }
 
-
       if(response?.status == 200) {
         this.serverStatus.nativeElement.className = "accept";
-
+        this.myAssertConnection.nativeElement.classList.remove("fade-in");
+        this._fetchUser();
 
         setTimeout(() => {
-          this.myAssertConnection.nativeElement.classList.remove("fade-in");
           this.myAssertConnection.nativeElement.classList.add("fade-out");
-          
-
         }, 2000)
       } else if(attempt >= limit) {
         this.serverStatus.nativeElement.className = "give-up";
@@ -61,9 +74,8 @@ export class AssertConectionComponent implements AfterViewInit {
 
     this.serverStatus.nativeElement.addEventListener('click', (event:PointerEvent) => {
       event.preventDefault();
-      attempt = 0;
       this.serverStatus.nativeElement.className = "loading";
-
+      attempt = 0;
       fetchServer();
     });
     

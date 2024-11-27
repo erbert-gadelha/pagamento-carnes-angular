@@ -43,15 +43,19 @@ export class ServerService {
 
   public static async aboutMe(): Promise<UserModel|null> {
     const response:Response|null = await ServerService.fetch('me','GET',null);
-
-    console.log("response", response)
-    console.log("response", response)
-
     if(response == null || !response.ok){
         console.error("Erro", response?.status);
         return null;
-      }
-    return await response.json().then((data) => data);
+    }
+
+    const userModel:UserModel|null = await response.json().then((data) => data);
+
+    if(userModel?.id) {
+      console.log(userModel)
+      return userModel;
+    }
+    else
+      return null;
   }
 
 }

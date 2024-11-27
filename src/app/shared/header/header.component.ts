@@ -58,12 +58,11 @@ export class HeaderComponent implements OnInit {
   };
 
 
-  async Funcao() {
+  async handleClick() {
     const response:Response|null = await ServerService.fetch('api/logout', 'DELETE', null);
-
     if(response!=null && response.ok) {
       UserService.clearUser();
-      window.location.replace("/");
+      //window.location.replace("/");
     }
   }
 

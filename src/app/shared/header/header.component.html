@@ -12,12 +12,12 @@
 
         <ng-container *ngIf="!user; else user_options">
           <app-navigate-to path="/entrar">
-            <p class="round-hiperlink" id="login-link">entrar</p>
-        </app-navigate-to>
+            <p class="round-hiperlink">entrar</p>
+          </app-navigate-to>
         </ng-container>
         <ng-template #user_options>
-          <p>Olá, {{user?.name}}!</p>
-          <button class="round-hiperlink" (click)="this.Funcao()" clickable>
+          <p id="user-message">Olá, {{user?.name}}!</p>
+          <button class="round-hiperlink" (click)="this.handleClick()" clickable>
             sair
           </button>
         </ng-template>
