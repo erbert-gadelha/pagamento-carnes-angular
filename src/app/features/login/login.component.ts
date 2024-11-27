@@ -41,8 +41,21 @@ export class LoginComponent {
     else if (!response.ok)
       this.loginWarn = "*Usuário ou senha incorretos."
     else {
-      UserService.setUser(await ServerService.aboutMe());
-      this.router.navigate(["/pagamento-carnes-angular"]);
+
+
+      setTimeout(async () => {
+        const userModel:UserModel|null = await ServerService.aboutMe();
+        console.log("userModel", userModel)
+        UserService.setUser(userModel);
+      }, 1000);
+      
+      /*const userModel:UserModel|null = await ServerService.aboutMe();
+      console.log("userModel", userModel)
+      UserService.setUser(userModel);*/
+
+      //console.log("fazendo o navigate.")
+      //window.location.replace("/");
+      //this.router.navigate(["/"]);
     }
   }
 

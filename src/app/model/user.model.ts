@@ -3,8 +3,8 @@ export interface UserModel {
     name: string|null,
     login: string|null,
     password: string|null,
-    //deletedAt: Date|null
-    profileImage: string|null;
+    deletedAt: Date|null
+    //profileImage: string|null;
   };
 
 
@@ -13,5 +13,5 @@ export const USER:UserModel = {
     name: null,
     login: null,
     password: null,
-    profileImage: null
+    deletedAt: null
 };
