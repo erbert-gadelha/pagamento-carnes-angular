@@ -29,13 +29,6 @@ export class LoginComponent {
   constructor() {}
 
 
-  async aboutMe():Promise<UserModel|null>  {
-    const userModel:UserModel|null = await ServerService.aboutMe();
-    UserService.setUser(userModel);
-    return userModel;
-  }
-
-
   async tryAuthenticate(userLoginDTO:UserLoginDTO):Promise<void> {
     const response:Response|null = await ServerService.fetch(
       'api/user/authenticate',
@@ -48,8 +41,8 @@ export class LoginComponent {
     else if (!response.ok)
       this.loginWarn = "*Usuário ou senha incorretos."
     else {
-      localStorage.setItem('userDetails', JSON.stringify(await this.aboutMe()));
-      this.router.navigate(["/"]);
+      UserService.setUser(await ServerService.aboutMe());
+      this.router.navigate(["/pagamento-carnes-angular"]);
     }
   }
 
