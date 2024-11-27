@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { UserService } from '../../service/user.service';
 import { UserModel, USER } from '../../model/user.model';
 import { ServerService } from '../../service/server.service';
+import { AppService } from '../../service/app.service';
 
 @Component({
   selector: 'app-login',
@@ -43,11 +44,14 @@ export class LoginComponent {
     else {
 
 
-      setTimeout(async () => {
+      //setTimeout(async () => {
         const userModel:UserModel|null = await ServerService.aboutMe();
         console.log("userModel", userModel)
         UserService.setUser(userModel);
-      }, 1000);
+
+        AppService.navigateTo('/')
+
+      //}, 1000);
       
       /*const userModel:UserModel|null = await ServerService.aboutMe();
       console.log("userModel", userModel)
