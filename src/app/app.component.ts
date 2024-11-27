@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 //  SHARED
 import { HeaderComponent } from "./shared/header/header.component";
 import { AssertConnectionComponent } from "./shared/assert-connection/assert-connection.component";
@@ -17,3 +18,4 @@ import { UserService } from './service/user.service';
 export class AppComponent {
   title = 'pagamento-carnes-angular';
 }
+

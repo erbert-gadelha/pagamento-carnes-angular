@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { UserModel } from '../../model/user.model';
 import { UserService } from '../../service/user.service';
 import { ServerService } from '../../service/server.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-assert-connection',
   standalone: true,
@@ -16,6 +17,10 @@ export class AssertConnectionComponent implements AfterViewInit {
   @ViewChild('serverStatus') serverStatus: ElementRef | any;
   @ViewChild('myAssertConnection') myAssertConnection: ElementRef | any;
   public attempts:string|any;
+
+  constructor(private httpClient: HttpClient) {
+    ServerService.setHttpClient(httpClient);
+  }
 
 
   private async _fetchUser() {    
@@ -36,18 +41,14 @@ export class AssertConnectionComponent implements AfterViewInit {
     const limit:number = 10;
     let attempt:number = 0;
 
-    const request = new Request(
-      `${environment.apiUrl}status`, {
-        method: "GET"
-      }
-    );
+    
 
     const fetchServer = async () => {
       this.attempts = `${++attempt}/${limit}`;
       let response: Response|null= null;
 
       try {  
-        response = await fetch(request);
+        response = await ServerService.fetch('status', 'GET', null);
       } catch(e:any) {
         // do nothing
       }

@@ -15,7 +15,6 @@ export class AppService {
     public static navigateTo(path: string): void {
       window.scrollTo({ top: 0, behavior: 'auto' });
       AppService.router?.navigate([path]);
-      console.log(AppService.router)
     }
 
 }
