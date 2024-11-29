@@ -8,11 +8,12 @@ import { UserService } from '../../service/user.service';
 import { UserModel, USER } from '../../model/user.model';
 import { ServerService } from '../../service/server.service';
 import { AppService } from '../../service/app.service';
+import { NavigateToComponent } from "../../shared/navigate-to/navigate-to.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NavigateToComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -22,7 +23,7 @@ export class LoginComponent {
     password: null
   };
   
-  public loginWarn:string = '';
+  public warmText:string = '';
   private router = inject(Router);
 
 
@@ -38,9 +39,9 @@ export class LoginComponent {
     );
     
     if(response == null)
-      this.loginWarn = "*Problemas de conexão."
+      this.warmText = "*Problemas de conexão."
     else if (!response.ok)
-      this.loginWarn = "*Usuário ou senha incorretos."
+      this.warmText = "*Usuário ou senha incorretos."
     else {
 
 

@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, PLATFORM_ID  } from '@angular/core';
 import { CommonModule, NgFor, NgIf, NgTemplateOutlet, isPlatformBrowser } from '@angular/common'; // Importação necessária para *ngFor e *ngIf
-//import { console } from 'inspector';
-import { environment } from '../../../environments/environment';
+import { ServerService } from '../../service/server.service';
 
 
 @Component({
@@ -42,10 +41,9 @@ export class PaymentsComponent implements OnInit {
         }
         
 
-        const request = new Request(`${environment.apiUrl}/api/payments`, { method: "GET" });
-        try {  
-          const response = await fetch(request);
-          console.log(response.status);
+        const response:Response|null = await ServerService.fetch('api/payments', 'GET', null);
+
+        if(response?.ok) {
           const data = await response.json();
           console.log(data);
           this.months = data?.payments;
@@ -53,10 +51,8 @@ export class PaymentsComponent implements OnInit {
           this.user.open =  data?.open;
           this.loading = false;
           this.fetchPromise = null;
-
-
-        } catch(e:any) {
-          console.log(e.message);
+        } else {
+          console.log("Failed to fetch", response);
           this.fetchPromise = setTimeout(() => fetchApi(fetchAttempts), 2000);
         }
 

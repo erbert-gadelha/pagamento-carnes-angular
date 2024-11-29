@@ -1,6 +1,6 @@
-<article class='fill-screen flex-center'>
+<article class='fill-screen flex-center user-form'>
     
-    <form id="form-login" #myform="ngForm" (ngSubmit)="onSubmit(myform)">
+    <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
         <label for="login">Usuário</label>
         <input id="login" name="login" type="text" placeholder="Usuário" [(ngModel)]="user.login"/>
 
@@ -10,7 +10,8 @@
             <input id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="user.password"/>
             <button id="show-password" class="material-symbols-outlined"type="button" onClick="foo()">visibility</button>
         </div>
-        <span #formWarn id="form-warn">{{loginWarn}}</span>
+        <span #formWarn class="form-warm">{{warmText}}</span>
+        <app-navigate-to path="registrar" id="navigate-to-other-form">Ainda não possui uma conta?</app-navigate-to>
         <input type="submit" value="Entrar"/>
     </form>
       

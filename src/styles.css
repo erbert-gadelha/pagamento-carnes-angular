@@ -82,3 +82,102 @@ body {
   .fill-screen {
     min-height: calc(100vh - var(--navbar-height));
   }
+
+
+  .user-form {
+
+    background-color: var(--thirdy-color);
+
+
+    form {
+      display: flex;
+      flex-direction: column;
+      border: black 1px solid;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 480px;
+      gap: 4px;
+      padding: 32px;
+      padding-top: 48px;
+      box-shadow: var(--primary-color) 0 54px 0 -32px inset;
+      background-color: white;
+
+      #navigate-to-other-form {
+        font-size: 0.7rem;
+        font-weight: 600;
+
+        width: 100%;
+        text-align: end;
+
+        &:hover {        
+          text-decoration: underline;
+        }
+      }
+    
+      .form-warm {
+        font-size: 0.7rem;
+        color: red;
+      }
+    
+      label {
+        margin-top: 4px;
+        margin-bottom: -4px;
+        font-weight: 500;
+        color: #333;
+      }
+    
+      div {
+        position: relative;
+        width: 100%;
+    
+        &:has(input:placeholder-shown) > button {
+          display: none;
+        }
+    
+        input {
+          width: 100%;
+        }
+    
+        button {
+          font-size: 1.3rem;
+          position: absolute;
+          right: 16px;
+          top: 4px;
+          bottom: 4px;
+          background-color: transparent;
+          color: #777;
+        }
+      }
+    
+      input {
+        font-size: 0.9rem;
+    
+        &[type=submit] {
+          padding: 8px;
+          background-color: var(--primary-color);
+          color: white;
+          cursor: pointer;
+          transition: box-shadow ease 300ms;
+          box-shadow: var(--thirdy-color) 0 0 0 0 inset;
+          margin-top: 32px;
+    
+          &:hover {
+            box-shadow: var(--thirdy-color) -24px 0px 0px 0px inset;
+          }
+        }
+        &[type=text],&[type=password] {
+          height: 32px;
+          border: gray 1px solid;
+          padding: 0 16px;
+          transition: box-shadow linear 150ms;
+    
+          &:focus {
+            outline: none;
+            box-shadow: var(--primary-color) 0px -2px 0px 0px inset;
+          }
+        }
+      }
+    }
+  }
+    

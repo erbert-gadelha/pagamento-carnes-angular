@@ -1,0 +1,27 @@
+<article class='fill-screen flex-center user-form'>
+    
+    <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
+
+        <label for="name">Nome de Usuário</label>
+        <input id="name" name="name" type="text" placeholder="Nome" [(ngModel)]="user.name"/>
+        <span #formWarn class="form-warm">{{nameWarm}}</span>
+
+        <label for="login">Login</label>
+        <input id="login" name="login" type="text" placeholder="Usuário" [(ngModel)]="user.login"/>
+        <span #formWarn class="form-warm">{{loginWarm}}</span>
+
+        <label for="password">Senha</label>
+        <div>
+            <input id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="user.password"/>
+            <button id="show-password" class="material-symbols-outlined"type="button" onClick="foo()">visibility</button>
+        </div>        
+        <div>
+            <input id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="user.pw_confirmation"/>
+            <button id="show-password" class="material-symbols-outlined"type="button" onClick="foo()">visibility</button>
+        </div>
+        <span #formWarn class="form-warm">{{passwordWarm}}</span>
+        <app-navigate-to path="entrar" id="navigate-to-other-form">já possui uma conta?</app-navigate-to>
+        <input type="submit" value="Cadastrar-se"/>
+    </form>
+      
+  </article>
