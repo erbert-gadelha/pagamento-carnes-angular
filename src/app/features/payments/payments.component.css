@@ -8,9 +8,11 @@ section {
   color: white;
 }
 
+
 .table_component {
   width: 100%;
   max-width: 640px;
+  padding: 0 4px;
 }
 
 .table_component table {
@@ -26,6 +28,13 @@ section {
   text-align: left;
   margin-bottom: 32px;
   font-size: 0.9rem;
+
+
+  td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 .table_component caption {
@@ -85,6 +94,40 @@ color: gray;
   animation: background-animation 1s linear infinite;
 
   pointer-events: none;
+}
+
+
+.payments-summary {
+  h1:after {
+    content: '\00a0';
+  }
+}
+
+
+.create-payment {
+  padding: 0 !important;
+
+  button {
+    background-color: var(--primary-color);
+    box-shadow: var(--thirdy-color) 0 0 0 inset;
+    color: black;
+    font-weight: 600;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+
+    transition-duration: 100ms;
+    transition-timing-function: ease;
+    transition-property: box-shadow, color;
+    transition-delay: 0ms;
+
+    &:hover {
+      transition-delay: 200ms;
+      background-color: rgb(216, 140, 0);
+      box-shadow: var(--thirdy-color) 0 -32px 0 inset;
+      color: white;
+    }
+  }
 }
 
 @keyframes background-animation {

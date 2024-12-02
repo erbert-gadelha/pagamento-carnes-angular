@@ -3,6 +3,8 @@ import { CommonModule, NgFor, NgIf, NgTemplateOutlet, isPlatformBrowser } from '
 import { ServerService } from '../../service/server.service';
 import { UserModel } from '../../model/user.model';
 import { UserService } from '../../service/user.service';
+import { ok } from 'node:assert';
+import { AppService } from '../../service/app.service';
 
 
 @Component({
@@ -25,7 +27,6 @@ export class PaymentsComponent implements OnInit {
   };
 
   public loading: boolean = true;
-  //public months:month[]|null = null;
   public fetchPromise: any= null;
 
   public response:PaymentDTO[] = [];
@@ -40,42 +41,55 @@ export class PaymentsComponent implements OnInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
 
+  async handleClick(month:number) {
+    const year:number = 2024;
+    const response:Response|null = await ServerService.fetch(`api/payment/create/${month}/${year}`, 'POST', null);
+    if(response?.ok)
+      this.fetchPromise = this._fetchPayments(5);
+  }
+
+
+  async _fetchPayments(fetchAttempts:number) {
+    const response:Response|null = await ServerService.fetch('api/payment/all', 'GET', null);
+
+    if(response?.ok) {
+      const data = await response.json();
+      
+      data.forEach((dto:PaymentDTO) => {
+        if(dto.closedAt)
+          dto.closedAt = new Date(dto.closedAt).toLocaleString('pt-BR')
+        this.response[dto.month] = dto;
+      });
+
+      this.paymentsInfo.closed =  data?.closed;
+      this.paymentsInfo.open =  data?.open;
+      this.loading = false;
+      this.fetchPromise = null;
+    } else if(response?.status == 403) {
+      AppService.navigateTo('/entrar');
+    } else {
+      console.warn("Failed to fetch", response);
+
+
+      if(fetchAttempts-- > 0) {
+        this.fetchPromise = setTimeout(() => this._fetchPayments(fetchAttempts), 500);
+        return;
+      }
+
+      console.warn("FailedToFetch: Número máximo de tentativas alcançado.");
+      this.fetchPromise = null;
+    }
+  }
 
   ngOnInit() {
-    UserService.userModel$.subscribe((userModel:UserModel|null) => { this.user = userModel; });
+    UserService.userModel$.subscribe((userModel:UserModel|null) => {
+      this.user = userModel;
+      if(!this.user)
+        AppService.navigateTo('/')
+    });
     if (isPlatformBrowser(this.platformId)) {
-
-      const fetchApi = async (fetchAttempts:number) => {        
-
-        const response:Response|null = await ServerService.fetch('api/payment/all', 'GET', null);
-
-        if(response?.ok) {
-          const data = await response.json();
-          
-          data.forEach((dto:PaymentDTO) => this.response[dto.month] = dto);
-
-          this.paymentsInfo.closed =  data?.closed;
-          this.paymentsInfo.open =  data?.open;
-          this.loading = false;
-          this.fetchPromise = null;
-        } else {
-          console.warn("Failed to fetch", response);
-
-
-          if(fetchAttempts-- > 0) {
-            this.fetchPromise = setTimeout(() => fetchApi(fetchAttempts), 500);
-            return;
-          }
-
-          console.warn("FailedToFetch: Número máximo de tentativas alcançado.");
-          this.fetchPromise = null;
-        }
-
-      };
-
-      let fetchAttempts = 20;
-      this.fetchPromise = fetchApi(fetchAttempts);
-
+      const fetchAttempts = 20;
+      this.fetchPromise = this._fetchPayments(fetchAttempts);
     }
     
   }
@@ -96,7 +110,7 @@ interface PaymentsInfo {
 interface PaymentDTO {
   month: number,
   year: number,
-  closedAt: Date|null,
+  closedAt: string|null,
   pixUrl: string|null
 };
 
