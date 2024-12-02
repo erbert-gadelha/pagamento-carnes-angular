@@ -10,7 +10,6 @@ import {HttpClient, HttpHandler} from '@angular/common/http';
 export class ServerService {
 
   private static http:HttpClient|null = null;
-  private static axios = require('axios').default;
 
   constructor() {}
 
@@ -81,10 +80,8 @@ export class ServerService {
 
     const userModel:UserModel|null = await response.json().then((data) => data);
 
-    if(userModel?.id) {
-      console.log(userModel)
+    if(userModel?.id)
       return userModel;
-    }
     else
       return null;
   }

@@ -49,7 +49,6 @@ export class LoginComponent {
         const userModel:UserModel|null = await ServerService.aboutMe();
         console.log("userModel", userModel)
         UserService.setUser(userModel);
-
         AppService.navigateTo('/')
 
       //}, 1000);

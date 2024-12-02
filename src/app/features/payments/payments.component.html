@@ -1,7 +1,7 @@
 <section class="flex-center fill-screen">
     <div  id="payment-list" class="table_component">
       <div>
-        <h1>{{user.name}}</h1>
+        <h1>{{user?.name}}</h1>
 
 
         
@@ -13,11 +13,10 @@
         </ng-container>
         <!--CARREGOU-->
         <ng-template #payment_details>
-          <span>Efetuados: {{user.closed}} </span> 
+          <span>Efetuados: {{paymentsInfo.closed}} </span> 
           <br/>
-          <span>Pendentes: {{user.open}}  </span>
+          <span>Pendentes: {{paymentsInfo.open}}  </span>
         </ng-template>
-
       </div>
 
 
@@ -32,7 +31,7 @@
         <tbody>
 
             <tr *ngFor="let month of months; let i = index">
-                <td>{{ month.name }}</td>
+                <td>{{ month }} </td> 
                 <!--CARREGANDO-->
                 <ng-container *ngIf="loading; else month_info">
                   <td> <span class="loading-span">...</span></td>
@@ -40,9 +39,9 @@
                 </ng-container>
                 <!--CARREGOU-->
                 <ng-template #month_info>
-                  <ng-container *ngIf="month.closedAt; else month_stillOpen">
-                    <td> <span class="accept">EFETUADO</span></td>
-                    <td> {{month.closedAt}}</td>
+                  <ng-container *ngIf="response[i]?.closedAt; else month_stillOpen">
+                    <td>  <span class="accept">EFETUADO</span></td>
+                    <td> {{response[i].closedAt}}</td>
                   </ng-container>
 
 
@@ -51,8 +50,8 @@
                   <ng-template #month_stillOpen>
                     <td> <span class="reject">PENDENTE</span> </td>
                     <td>  <!--GERAR_COBRANCA-->
-                      <span *ngIf="month.pixUrl; else create_payment"> <a href="{{month.pixUrl}}" target="_blank" rel="noopener noreferrer">{{month.pixUrl}}</a></span>
-                      <ng-template #create_payment> <a href="{{month.name}}" target="_blank" rel="noopener noreferrer">gerar pix</a></ng-template>
+                      <span *ngIf="response[i]?.pixUrl; else create_payment"> <a href="{{response[i].pixUrl}}" target="_blank" rel="noopener noreferrer">{{response[i].pixUrl}}</a></span>
+                      <ng-template #create_payment> <a href="{{month}}" target="_blank" rel="noopener noreferrer">gerar pix</a></ng-template>
                     </td>
                   </ng-template>
 

@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './assert-connection.component.html',
   styleUrl: './assert-connection.component.css'
 })
-export class AssertConnectionComponent implements AfterViewInit {
+export class AssertConnectionComponent implements OnInit {
 
   @ViewChild('serverStatus') serverStatus: ElementRef | any;
   @ViewChild('myAssertConnection') myAssertConnection: ElementRef | any;
@@ -23,7 +23,7 @@ export class AssertConnectionComponent implements AfterViewInit {
   }
 
 
-  private async _fetchUser() {    
+  private async _fetchUser() {
     const savedInfo:UserModel|null = UserService.getUser();
     UserService.setUser(savedInfo);
 
@@ -33,15 +33,9 @@ export class AssertConnectionComponent implements AfterViewInit {
   }
 
   ngOnInit(): void {
-    this._fetchUser();
-  }
-
-  ngAfterViewInit(): void {
     const delayMilliseconds:number = 2000;
     const limit:number = 10;
     let attempt:number = 0;
-
-    
 
     const fetchServer = async () => {
       this.attempts = `${++attempt}/${limit}`;

@@ -1,6 +1,7 @@
 import { Component, inject, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '../../service/app.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-navigate-to',
@@ -15,8 +16,10 @@ export class NavigateToComponent  implements AfterViewInit {
   @ViewChild('myNavigateTo') myNavigateTo: ElementRef | any;
   private router:Router = inject(Router);
 
+  public relativePath:string|null = environment.relativePath;
+
   constructor() {
-    AppService.router = this.router
+    AppService.router = this.router;
   }
 
 
@@ -24,8 +27,6 @@ export class NavigateToComponent  implements AfterViewInit {
     this.myNavigateTo.nativeElement.addEventListener("click", (event:any) => {
       event.preventDefault();
       AppService.navigateTo(this.path);
-      /*window.scrollTo({ top: 0, behavior: 'instant' })
-      this.router.navigate([this.path]);*/
     })
 
   }

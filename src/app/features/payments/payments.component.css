@@ -76,15 +76,15 @@ color: gray;
 
 
 .loading-span{
-font-weight: 600;
-letter-spacing: 2px;
-padding: 0 8px;
-border-radius: 2px;
-background: linear-gradient(0deg, transparent 25%, rgba(157,157,157,.4) 50%, transparent 75%);
-background-size: 200% 200%;
-animation: background-animation 1s linear infinite;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 0 8px;
+  border-radius: 2px;
+  background: linear-gradient(0deg, transparent 25%, rgba(157,157,157,.4) 50%, transparent 75%);
+  background-size: 200% 200%;
+  animation: background-animation 1s linear infinite;
 
-pointer-events: none;
+  pointer-events: none;
 }
 
 @keyframes background-animation {
