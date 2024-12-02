@@ -1,12 +1,5 @@
-export const environment:Environment = {
+export const environment = {
   production: true,
   apiUrl: 'https://pagamento-carnes-production.up.railway.app/',
-  relativePath: null
+  relativePath: '/pagamento-carnes-angular'
 };
-
-
-interface Environment {
-  production:boolean,
-  apiUrl:string,
-  relativePath:string|null
-}
