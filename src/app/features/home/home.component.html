@@ -67,22 +67,40 @@
   
   
   <section id="about">
-    
-    <h1>
-      wasd
-    </h1>
-  
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ullamcorper, dolor eget facilisis vestibulum, nibh ante bibendum nunc, vitae imperdiet justo ex sed leo. Nunc ac neque pharetra, gravida mi eu, vestibulum mi. Phasellus suscipit, risus eget laoreet mollis, purus nunc fermentum mauris, nec dictum ligula dolor non orci. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In faucibus sagittis ultricies. Suspendisse lacinia, ligula ac luctus cursus, quam lectus bibendum urna, sed luctus purus urna ut ante. Nulla placerat ligula non consectetur scelerisque. Donec elementum elit eget nunc vestibulum tristique. Vivamus faucibus odio vel velit rhoncus, sed porta nisl ornare. Fusce nec nisl nec mi molestie mollis. Suspendisse posuere nunc vitae tortor facilisis facilisis. Vestibulum nec vestibulum elit, vitae sollicitudin libero. Maecenas eu est eget sem pulvinar ullamcorper. Fusce eu dignissim massa. Praesent vel eros magna.
-    </p>
+
+    <h3>
+      Sobre a Aplicação
+    </h3>
+    <span>
+      A aplicação foi criada para facilitar o acompanhamento e a <b>geração de pagamentos Pix</b> recorrentes, consolidando todas as cobranças mensais em um único local. Com valores pré-definidos para cada mês, os pagamentos realizados atualizam automaticamente o banco de dados da aplicação por meio de <b>webhooks</b> fornecidos pelo <a href="https://dev.efipay.com.br/docs/api-pix/webhooks/">banco EFI</a>.
+    </span>
+    <br> <br>
+    <h4>Java Spring (backend)</h4>
+    <ul style="margin-left: 24px;">
+      <li><b>Tecnologia</b>: Desenvolvido em <b>Java Spring</b>, oferecendo robustez e leveza.</li>
+      <li><b>Segurança</b>: Dados sensíveis, como senhas, são armazenados de forma segura com <b>criptografia BCrypt</b>, em conformidade com as exigências da LGPD.</li>
+      <li><b>DTOs</b>: As respostas às requisições utilizam DTOs (Data Transfer Objects) para proteger dados internos e evitar exposição desnecessária.</li>
+      <li><b>Gerenciamento de Sessões</b>: Sessões de usuário são gerenciadas por <b>tokens JWT</b>, garantindo segurança e desempenho.</li>
+      <li><b>Integração com Webhooks</b>: Atualização automatizada do status de pagamentos por meio de notificações do banco.</li>
+    </ul>
+    <span> Mais detalhes no repositório: <a href="https://github.com/erbert-gadelha/pagamento-carnes-spring" target="_blank">pagamento-carnes-spring</a> </span>
+    <br> <br>
+    <h4>AngularJs(frontend)</h4>
+    <ul style="margin-left: 24px;">
+      <li><b>Tecnologia</b>: Desenvolvido com <b>Angular</b>, conhecido por sua leveza e confiabilidade.</li>
+      <li><b>Segurança</b>: Todas as chamadas à API utilizam o protocolo <b>HTTPS</b> (TLS), garantindo <b>criptografia ponta-a-ponta</b>.</li>
+      <li><b>Interface</b>: <b>SPA</b> (Single Page Application) fluida e responsiva, projetada para facilitar a gestão dos pagamentos independentemente da plataforma utilizada.</li>
+    </ul>
+    <span> Mais detalhes no repositório: <a href="https://github.com/erbert-gadelha/pagamento-carnes-angular" target="_blank">pagamento-carnes-angular</a> </span>
+
   </section>
   
   
   
   
   <section id="calendar">
-    <h1>Calendário e BlaBla</h1>
-    <iframe overflow="hidden" scrolling="no" frameBorder="0" width="100%" style="overflow:hidden;border:0;" border="0" height="800px" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQCJRNlLoS2rWU0LXo7LHcTPKPYp1P8rSRXQ2aHacyKnBUaykQFFR-w_jSbK5iagLCDl2tfakbDrRsR/pubhtml?widget=false&amp;headers=false&amp;chrome=false&amp;rm=minimal;frameborder=0"></iframe>
+    <h1>Calendário</h1>
+    <iframe overflow="hidden" scrolling="no" frameBorder="0" width="100%" style="overflow:hidden;border:0;" height="800px" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQCJRNlLoS2rWU0LXo7LHcTPKPYp1P8rSRXQ2aHacyKnBUaykQFFR-w_jSbK5iagLCDl2tfakbDrRsR/pubhtml?widget=false&amp;headers=false&amp;chrome=false&amp;rm=minimal;frameborder=0"></iframe>
     
     
     
