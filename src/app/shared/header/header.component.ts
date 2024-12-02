@@ -7,6 +7,7 @@ import { UserModel } from '../../model/user.model';
 import { UserService } from '../../service/user.service';
 import { NgIf, CommonModule } from '@angular/common';
 import { ServerService } from '../../service/server.service';
+import { AppService } from '../../service/app.service';
 
 @Component({
   selector: 'app-header',
@@ -62,6 +63,7 @@ export class HeaderComponent implements OnInit {
     const response:Response|null = await ServerService.fetch('api/logout', 'DELETE', null);
     if(response!=null && response.ok) {
       UserService.clearUser();
+      AppService.navigateTo('/')
       //window.location.replace("/");
     }
   }

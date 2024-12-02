@@ -82,11 +82,7 @@ export class PaymentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    UserService.userModel$.subscribe((userModel:UserModel|null) => {
-      this.user = userModel;
-      if(!this.user)
-        AppService.navigateTo('/')
-    });
+    UserService.userModel$.subscribe((userModel:UserModel|null) => { this.user = userModel; });
     if (isPlatformBrowser(this.platformId)) {
       const fetchAttempts = 20;
       this.fetchPromise = this._fetchPayments(fetchAttempts);
