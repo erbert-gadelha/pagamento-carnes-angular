@@ -56,6 +56,17 @@ export class RegisterComponent {
   }
 
 
+
+  changeVisibility(input:any, button:Element) {
+    if(input.type == 'text'){
+      input.type = 'password';
+      button.innerHTML = 'visibility';
+    } else {
+      input.type = 'text';
+      button.innerHTML = 'visibility_off';
+    }
+  }
+
   async onSubmit(form: Form) {
     let isValid:boolean = true;
 

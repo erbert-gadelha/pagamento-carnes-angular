@@ -12,12 +12,12 @@
 
         <label for="password">Senha</label>
         <div>
-            <input id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="userDTO.password"/>
-            <button id="show-password" class="material-symbols-outlined"type="button" onClick="foo()">visibility</button>
+            <input #password id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="userDTO.password"/>
+            <button #password_button id="show-password" class="material-symbols-outlined"type="button" (click)="changeVisibility(password, password_button)">visibility</button>
         </div>        
         <div>
-            <input id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="userDTO.pw_confirmation"/>
-            <button id="show-password" class="material-symbols-outlined"type="button" onClick="foo()">visibility</button>
+            <input #pw_confirmation id="pw_confirmation" name="pw_confirmation" type="password" placeholder="Confirme a Senha"  [(ngModel)]="userDTO.pw_confirmation"/>
+            <button #pw_confirmation_button id="show-password" class="material-symbols-outlined"type="button" (click)="changeVisibility(pw_confirmation, pw_confirmation_button)">visibility</button>
         </div>
         <span #formWarn class="form-warm">{{passwordWarm}}</span>
         <app-navigate-to path="entrar" id="navigate-to-other-form">já possui uma conta?</app-navigate-to>

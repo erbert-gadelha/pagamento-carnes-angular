@@ -43,27 +43,22 @@ export class LoginComponent {
     else if (!response.ok)
       this.warmText = "*Usuário ou senha incorretos."
     else {
-
-
-      //setTimeout(async () => {
-        const userModel:UserModel|null = await ServerService.aboutMe();
-        console.log("userModel", userModel)
-        UserService.setUser(userModel);
-        AppService.navigateTo('/')
-
-      //}, 1000);
-      
-      /*const userModel:UserModel|null = await ServerService.aboutMe();
+      const userModel:UserModel|null = await ServerService.aboutMe();
       console.log("userModel", userModel)
-      UserService.setUser(userModel);*/
-
-      //console.log("fazendo o navigate.")
-      //window.location.replace("/");
-      //this.router.navigate(["/"]);
+      UserService.setUser(userModel);
+      AppService.navigateTo('/')
     }
   }
 
-
+  changeVisibility(input:any, button:Element) {
+    if(input.type == 'text'){
+      input.type = 'password';
+      button.innerHTML = 'visibility';
+    } else {
+      input.type = 'text';
+      button.innerHTML = 'visibility_off';
+    }
+  }
   
   onSubmit(form: Form) {
     this.tryAuthenticate(this.user);
