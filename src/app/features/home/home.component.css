@@ -95,6 +95,10 @@ section {
     }
   }
   
+
+  #about {
+    margin: 0 16px;
+  }
   
   
   @media (max-width: 440px) {
