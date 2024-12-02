@@ -3,20 +3,20 @@
     <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
 
         <label for="name">Nome de Usuário</label>
-        <input id="name" name="name" type="text" placeholder="Nome" [(ngModel)]="user.name"/>
+        <input id="name" name="name" type="text" placeholder="Nome" [(ngModel)]="userDTO.name"/>
         <span #formWarn class="form-warm">{{nameWarm}}</span>
 
         <label for="login">Login</label>
-        <input id="login" name="login" type="text" placeholder="Usuário" [(ngModel)]="user.login"/>
+        <input id="login" name="login" type="text" placeholder="Usuário" [(ngModel)]="userDTO.login"/>
         <span #formWarn class="form-warm">{{loginWarm}}</span>
 
         <label for="password">Senha</label>
         <div>
-            <input id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="user.password"/>
+            <input id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="userDTO.password"/>
             <button id="show-password" class="material-symbols-outlined"type="button" onClick="foo()">visibility</button>
         </div>        
         <div>
-            <input id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="user.pw_confirmation"/>
+            <input id="password" name="password" type="password" placeholder="Senha"  [(ngModel)]="userDTO.pw_confirmation"/>
             <button id="show-password" class="material-symbols-outlined"type="button" onClick="foo()">visibility</button>
         </div>
         <span #formWarn class="form-warm">{{passwordWarm}}</span>

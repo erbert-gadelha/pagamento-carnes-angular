@@ -18,7 +18,7 @@ import { NavigateToComponent } from "../../shared/navigate-to/navigate-to.compon
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  public user:UserRegisterDTO = {
+  public userDTO:UserRegisterDTO = {
     name: null,
     login: null,
     password: null,
@@ -56,50 +56,49 @@ export class RegisterComponent {
   }
 
 
-  onSubmit(form: Form) {
-    /* nameWarm
-     * loginWarm
-     * passwordWarm
-     */
-
+  async onSubmit(form: Form) {
     let isValid:boolean = true;
 
-
-    if(!this.user.name || this.user.name?.length < 3) {
+    if(!this.userDTO.name || this.userDTO.name?.length < 3) {
       isValid = false;
       this.nameWarm = "* deve conter no mínimo 3 caracteres.";
     } else {
       this.nameWarm = "";
     }
 
-    if(!this.user.login || this.user.login?.length < 3) {
+    if(!this.userDTO.login || this.userDTO.login?.length < 3) {
       isValid = false;
       this.loginWarm = "* deve conter no mínimo 3 caracteres.";
-    } else if(true) {
-      isValid = false;
-      this.loginWarm = "* não pode conter caracteres especiais.";
     } else {
       this.loginWarm = "";
     }
 
-    if(!this.user.password || this.user.password?.length < 4) {
+    if(!this.userDTO.password || this.userDTO.password?.length < 4) {
       isValid = false;
       this.passwordWarm = "* sua senha deve conter no mínimo 4 caracteres.";
-    } else if (!this.user.pw_confirmation || this.user.pw_confirmation != this.user.password) {
+    } else if (!this.userDTO.pw_confirmation || this.userDTO.pw_confirmation != this.userDTO.password) {
       isValid = false;
       this.passwordWarm = "* as senhas devem coincidir";
     } else {
       this.passwordWarm = "";
     }
 
-    /*if(!this.user.name || this.user.name?.length < 3) {
-      isValid = false;
-      this.nameWarm = "* deve conter no mínimo 3 caracteres.";
-    }*/
-
-    if(isValid) {
-      //this.tryAuthenticate(this.user);
+    if(!isValid)
+      return;
+    
+    const response:Response|null = await ServerService.fetch('api/user/create', 'POST', this.userDTO);
+    if(response?.status == 400) {
+      this.loginWarm = `* o login "${this.userDTO.login}" já está em uso.`;
+      return;
     }
+    if(response?.ok) {
+      const authResponse:Response|null = await ServerService.fetch('api/user/authenticate', 'POST', this.userDTO);
+      if(authResponse?.ok) {
+        UserService.setUser(await ServerService.aboutMe());
+        AppService.navigateTo('/');
+      }
+    }
+    
   }
   
 }
