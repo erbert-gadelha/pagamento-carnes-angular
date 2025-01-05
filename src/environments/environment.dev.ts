@@ -1,6 +1,7 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://2e2a-45-171-96-30.ngrok-free.app/',
+    apiUrl: 'https://pagamento-carnes-production.up.railway.app/',
+    //apiUrl: 'http://localhost:4200/',
     relativePath: null
   };
   
