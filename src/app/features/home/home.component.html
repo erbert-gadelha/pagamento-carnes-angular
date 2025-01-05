@@ -1,9 +1,8 @@
-<section id="hotspot">
+<section id="atalhos">
 
 
-  <div id="atalhos">
 
-    <div>
+    <div class="container">
       <a class="atalho" href="#calendar">
         <span class="material-symbols-outlined"> calendar_month </span>
         calendário
@@ -19,7 +18,7 @@
 
     </div>
 
-    <div>
+    <div class="container">
       <a class="atalho" href="#">
         loren
       </a>    
@@ -28,39 +27,44 @@
       </a>
     </div>
 
-  </div>
 
 
 </section>
+
+
   
-  <section id="welcome">
-    <img src="https://c.files.bbci.co.uk/99EB/production/_124130493_gettyimages-1305781612.jpg" alt="">
-    <div>
+  <section id="hello">
 
+    <!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,288L120,256C240,224,480,160,720,138.7C960,117,1200,139,1320,149.3L1440,160L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>-->
+    <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,192L120,160C240,128,480,64,720,37.3C960,11,1200,21,1320,26.7L1440,32L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>
 
-      <ng-container *ngIf="!user; else welcome_message">
-        <h2>Olá, usuário</h2>
-        <p>
-          Entre em sua conta de usuário para que possa vizualisar seu <strong>histórico de pagamento</strong>, ou para ter acesso a <strong>novas cobranças</strong>.
-        </p>
+    <div class="container">
+      <div>
+        <img src="https://c.files.bbci.co.uk/99EB/production/_124130493_gettyimages-1305781612.jpg" alt="">
+        <div>
+          <ng-container *ngIf="!user; else welcome_message">
+            <h1>Olá, usuário</h1>
+            <p>
+              Entre em sua conta de usuário para que possa vizualisar seu <strong>histórico de pagamento</strong>, ou para ter acesso a <strong>novas cobranças</strong>.
+            </p>
 
+            <app-navigate-to path="/entrar" style="width: fit-content;">
+              <p class="round-hiperlink">entrar</p>
+            </app-navigate-to>     
+          </ng-container>
+          
+          <ng-template #welcome_message>
+            <h2>Olá, {{user?.name}}</h2>
+            <p>
+              Entre em sua conta de usuário para que possa vizualisar seu <strong>histórico de pagamento</strong>, ou para ter acesso a <strong>novas cobranças</strong>.
+            </p>
 
-        <app-navigate-to path="/entrar" style="width: fit-content;">
-          <p class="round-hiperlink">entrar</p>
-        </app-navigate-to>     
-      </ng-container>
-      
-      <ng-template #welcome_message>
-        <h2>Olá, {{user?.name}}</h2>
-        <p>
-          Entre em sua conta de usuário para que possa vizualisar seu <strong>histórico de pagamento</strong>, ou para ter acesso a <strong>novas cobranças</strong>.
-        </p>
-
-        <app-navigate-to path="/pagamentos" style="width: fit-content;">
-          <p class="round-hiperlink">pagamentos</p>
-        </app-navigate-to>     
-      </ng-template>
-
+            <app-navigate-to path="/pagamentos" style="width: fit-content;">
+              <p class="round-hiperlink">pagamentos</p>
+            </app-navigate-to>     
+          </ng-template>
+        </div>
+      </div>
     </div>
   </section>
   
@@ -68,31 +72,39 @@
   
   <section id="about">
 
-    <h3>
-      Sobre a Aplicação
-    </h3>
-    <span>
-      A aplicação foi criada para facilitar o acompanhamento e a <b>geração de pagamentos Pix</b> recorrentes, consolidando todas as cobranças mensais em um único local. Com valores pré-definidos para cada mês, os pagamentos realizados atualizam automaticamente o banco de dados da aplicação por meio de <b>webhooks</b> fornecidos pelo <a href="https://dev.efipay.com.br/docs/api-pix/webhooks/">banco EFI</a>.
-    </span>
-    <br> <br>
-    <h4>Java Spring (backend)</h4>
-    <ul style="margin-left: 24px;">
-      <li><b>Tecnologia</b>: Desenvolvido em <b>Java Spring</b>, oferecendo robustez e leveza.</li>
-      <li><b>Segurança</b>: Dados sensíveis, como senhas, são armazenados de forma segura com <b>criptografia BCrypt</b>, em conformidade com as exigências da LGPD.</li>
-      <li><b>DTOs</b>: As respostas às requisições utilizam DTOs (Data Transfer Objects) para proteger dados internos e evitar exposição desnecessária.</li>
-      <li><b>Gerenciamento de Sessões</b>: Sessões de usuário são gerenciadas por <b>tokens JWT</b>, garantindo segurança e desempenho.</li>
-      <li><b>Integração com Webhooks</b>: Atualização automatizada do status de pagamentos por meio de notificações do banco.</li>
-    </ul>
-    <span> Mais detalhes no repositório: <a href="https://github.com/erbert-gadelha/pagamento-carnes-spring" target="_blank">pagamento-carnes-spring</a> </span>
-    <br> <br>
-    <h4>AngularJs(frontend)</h4>
-    <ul style="margin-left: 24px;">
-      <li><b>Tecnologia</b>: Desenvolvido com <b>Angular</b>, conhecido por sua leveza e confiabilidade.</li>
-      <li><b>Segurança</b>: Todas as chamadas à API utilizam o protocolo <b>HTTPS</b> (TLS), garantindo <b>criptografia ponta-a-ponta</b>.</li>
-      <li><b>Interface</b>: <b>SPA</b> (Single Page Application) fluida e responsiva, projetada para facilitar a gestão dos pagamentos independentemente da plataforma utilizada.</li>
-    </ul>
-    <span> Mais detalhes no repositório: <a href="https://github.com/erbert-gadelha/pagamento-carnes-angular" target="_blank">pagamento-carnes-angular</a> </span>
+    <div class="texto">
+      <h3>
+        Sobre a Aplicação
+      </h3>
+      <span>
+        A aplicação foi criada para facilitar o acompanhamento e a <b>geração de pagamentos Pix</b> recorrentes, consolidando todas as cobranças mensais em um único local. Com valores pré-definidos para cada mês, os pagamentos realizados atualizam automaticamente o banco de dados da aplicação por meio de <b>webhooks</b> fornecidos pelo <a href="https://dev.efipay.com.br/docs/api-pix/webhooks/">banco EFI</a>.
+      </span>
+    </div>
 
+    <div class="descricao">      
+    
+      <div>
+        <h4>Java Spring (backend)</h4>
+        <ul style="margin-left: 24px;">
+          <li><b>Tecnologia</b>: Desenvolvido em <b>Java Spring</b>, oferecendo robustez e leveza.</li>
+          <li><b>Segurança</b>: Dados sensíveis, como senhas, são armazenados de forma segura com <b>criptografia BCrypt</b>, em conformidade com as exigências da LGPD.</li>
+          <li><b>DTOs</b>: As respostas às requisições utilizam DTOs (Data Transfer Objects) para proteger dados internos e evitar exposição desnecessária.</li>
+          <li><b>Gerenciamento de Sessões</b>: Sessões de usuário são gerenciadas por <b>tokens JWT</b>, garantindo segurança e desempenho.</li>
+          <li><b>Integração com Webhooks</b>: Atualização automatizada do status de pagamentos por meio de notificações do banco.</li>
+        </ul>
+        <span> Mais detalhes no repositório: <a href="https://github.com/erbert-gadelha/pagamento-carnes-spring" target="_blank">pagamento-carnes-spring</a> </span>      
+      </div>
+      
+      <div>
+        <h4>AngularJs(frontend)</h4>
+        <ul style="margin-left: 24px;">
+          <li><b>Tecnologia</b>: Desenvolvido com <b>Angular</b>, conhecido por sua leveza e confiabilidade.</li>
+          <li><b>Segurança</b>: Todas as chamadas à API utilizam o protocolo <b>HTTPS</b> (TLS), garantindo <b>criptografia ponta-a-ponta</b>.</li>
+          <li><b>Interface</b>: <b>SPA</b> (Single Page Application) fluida e responsiva, projetada para facilitar a gestão dos pagamentos independentemente da plataforma utilizada.</li>
+        </ul>
+        <span> Mais detalhes no repositório: <a href="https://github.com/erbert-gadelha/pagamento-carnes-angular" target="_blank">pagamento-carnes-angular</a> </span>
+      </div>
+    </div>
   </section>
   
   
