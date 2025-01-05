@@ -1,28 +1,32 @@
 
   <nav>
     <div id="navbar">
-      <app-navigate-to id="logo" path="/" height="fit-content">
-        <div id="logo">
-          <img src="images/svg-2.svg" height="25px" width="25px" alt=""/>
-          <h1>Pagamento de Carnês</h1>
+      <div id="container">
+        <app-navigate-to id="logo" path="/" height="fit-content">
+          <div id="logo">
+            <img src="images/vector.svg" height="40px" width="40px" alt=""/>
+            <h1>Pagamento <br> de Carnês</h1>
+          </div>
+        </app-navigate-to>
+
+        <div id="options">
+
+          <ng-container *ngIf="!user; else user_options">
+            <app-navigate-to path="/entrar">
+              <p class="round-hiperlink">entrar</p>
+            </app-navigate-to>
+          </ng-container>
+          <ng-template #user_options>
+            <p id="user-message">Olá, {{user?.name}}!</p>
+            <button class="round-hiperlink" (click)="this.handleClick()" clickable>
+              sair
+            </button>
+          </ng-template>
+
+
         </div>
-      </app-navigate-to>
 
-      <div id="options">
-
-        <ng-container *ngIf="!user; else user_options">
-          <app-navigate-to path="/entrar">
-            <p class="round-hiperlink">entrar</p>
-          </app-navigate-to>
-        </ng-container>
-        <ng-template #user_options>
-          <p id="user-message">Olá, {{user?.name}}!</p>
-          <button class="round-hiperlink" (click)="this.handleClick()" clickable>
-            sair
-          </button>
-        </ng-template>
-
-
+        
       </div>
     </div>
 </nav>
