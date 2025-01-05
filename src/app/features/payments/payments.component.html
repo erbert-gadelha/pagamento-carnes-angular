@@ -1,23 +1,24 @@
 <section class="flex-center fill-screen">
     <div  id="payment-list" class="table_component">
       <div class="payments-summary">
-        <h1>{{user?.name}}</h1>
-
-
-        
-        <!--CARREGANDO-->
-        <ng-container *ngIf="loading; else payment_details">
-          <span>Efetuados: <span class="loading-span">...</span> </span> 
-          <br/>
-          <span>Pendentes: <span class="loading-span">...</span> </span>
-        </ng-container>
-        <!--CARREGOU-->
-        <ng-template #payment_details>
-          <span>Efetuados: {{paymentsInfo.closed}} </span> 
-          <br/>
-          <span>Pendentes: {{paymentsInfo.open}}  </span>
-        </ng-template>
+        <div>
+          <h1>{{user?.name}}</h1>
+          <!--CARREGANDO-->
+          <ng-container *ngIf="loading; else payment_details">
+            <span>Efetuados: <span class="loading-span">...</span> </span> 
+            <br/>
+            <span>Pendentes: <span class="loading-span">...</span> </span>
+          </ng-container>
+          <!--CARREGOU-->
+          <ng-template #payment_details>
+            <span>Efetuados: {{paymentsInfo.closed}} </span> 
+            <br/>
+            <span>Pendentes: {{paymentsInfo.open}}  </span>
+          </ng-template>
+        </div>
       </div>
+      <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,192L120,160C240,128,480,64,720,37.3C960,11,1200,21,1320,26.7L1440,32L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>
+
 
 
       <table id="table-component">

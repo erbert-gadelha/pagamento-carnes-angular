@@ -1,25 +1,17 @@
 section {
-    background-color: var(--thirdy-color);
+    background-color: var(--color-1);
 }
 
-
-#payment-list > div {
-  padding: 16px 8px;
-  color: white;
-}
 
 
 .table_component {
   width: 100%;
-  max-width: 640px;
-  padding: 0 4px;
 }
 
 .table_component table {
-  outline: 1px solid black;
-  border-radius: 10px;
+  max-width: 800px;
+  margin: auto;
 
-  overflow: hidden;
   height: 100%;
   width: 100%;
   table-layout: fixed;
@@ -28,7 +20,6 @@ section {
   text-align: left;
   margin-bottom: 32px;
   font-size: 0.9rem;
-
 
   td {
     white-space: nowrap;
@@ -43,19 +34,14 @@ section {
 }
 
 .table_component th {
-  border: 1px solid #dededf;
-  background-color: #eceff1;
-  color: #000000;
-  color: black;
-  background-color: var(--primary-color);
-  border: var(--primary-color) 1px solid;
-  padding: 5px;
+  padding: 5px 8px;
   padding-top: 10px;
+  color: var(--color-0);
+  background-color: var(--color-2);
 }
 
 .table_component td {
-  border: 1px solid #dededf;
-  color: #000000;
+  color: black;
   padding: 5px;
 }
 
@@ -98,8 +84,46 @@ color: gray;
 
 
 .payments-summary {
+  background-color: var(--color-2);
+  padding: 0;
+  box-shadow: var(--color-2) 0 -64px 0;
+  
   h1:after {
     content: '\00a0';
+  }
+
+  div {
+    padding: 16px 4px;
+    padding-bottom: 0;
+    color: var(--color-0);
+    margin: auto;
+    max-width: 800px;
+  }
+
+}
+
+td:nth-of-type(3) {
+
+  a {
+    color: var(--color-2);
+    padding: 8px 8px;
+    background-color: var(--color-0);
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+  }
+}
+
+
+svg {
+  transform: scaleY(-1);
+  width: 100%;
+  height: 32px;
+  
+  path {
+    fill: var(--color-2);
   }
 }
 
@@ -108,24 +132,16 @@ color: gray;
   padding: 0 !important;
 
   button {
-    background-color: var(--primary-color);
-    box-shadow: var(--thirdy-color) 0 0 0 inset;
-    color: black;
+    background-color: var(--color-2);
+    color: var(--color-0);
     font-weight: 600;
     width: 100%;
     height: 100%;
     cursor: pointer;
 
-    transition-duration: 100ms;
-    transition-timing-function: ease;
-    transition-property: box-shadow, color;
-    transition-delay: 0ms;
-
     &:hover {
-      transition-delay: 200ms;
-      background-color: rgb(216, 140, 0);
-      box-shadow: var(--thirdy-color) 0 -32px 0 inset;
-      color: white;
+      background-color: var(--color-1);
+      color: var(--color-2);
     }
   }
 }
