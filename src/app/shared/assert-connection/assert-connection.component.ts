@@ -18,6 +18,9 @@ export class AssertConnectionComponent implements OnInit {
   @ViewChild('myAssertConnection') myAssertConnection: ElementRef | any;
   public attempts:string|any;
 
+  private delayMilliseconds:number = 2000;
+  private maxAttempts:number = 4;
+
   constructor(private httpClient: HttpClient) {
     ServerService.setHttpClient(httpClient);
   }
@@ -33,46 +36,41 @@ export class AssertConnectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const delayMilliseconds:number = 2000;
-    const limit:number = 10;
-    let attempt:number = 0;
+    this.fetchServer(0);    
+  }
 
-    const fetchServer = async () => {
-      this.attempts = `${++attempt}/${limit}`;
-      let response: Response|null= null;
+  public async fetchServer(attempt:any) {
+    attempt+=1;
 
-      try {  
-        response = await ServerService.fetch('status', 'GET', null);
-      } catch(e:any) {
-        // do nothing
-      }
+    if(attempt > this.maxAttempts) {
+      this.serverStatus.nativeElement.className = "give-up";
+      console.error("I give up.");
+      return;
+    }
 
-      if(response?.status == 200) {
-        this.serverStatus.nativeElement.className = "accept";
-        this.myAssertConnection.nativeElement.classList.remove("fade-in");
-        this._fetchUser();
+    this.attempts = `${attempt}/${this.maxAttempts}`;
+    let response: Response|null= null;
 
-        setTimeout(() => {
-          this.myAssertConnection.nativeElement.classList.add("fade-out");
-        }, 2000)
-      } else if(attempt >= limit) {
-        this.serverStatus.nativeElement.className = "give-up";
-        console.error("I give up.");
-      } else {
-        this.myAssertConnection.nativeElement.classList.add("fade-in");
-        setTimeout(fetchServer, delayMilliseconds)
-      };
+    try {  
+      response = await ServerService.fetch('status', 'GET', null);
+    } catch(e:any) {
+      // do nothing
+    }
 
+    if(response?.status == 200) {
+      this.serverStatus.nativeElement.className = "accept";
+      this.myAssertConnection.nativeElement.classList.remove("fade-in");
+      this._fetchUser();
+      setTimeout(() => { this.myAssertConnection.nativeElement.classList.add("fade-out"); }, 2000);
+    } else {
+      this.myAssertConnection.nativeElement?.classList.add("fade-in");
+      setTimeout(()=>this.fetchServer(attempt), this.delayMilliseconds);
     };
 
-    fetchServer();
+  }
 
-    this.serverStatus.nativeElement.addEventListener('click', (event:PointerEvent) => {
-      event.preventDefault();
-      this.serverStatus.nativeElement.className = "loading";
-      attempt = 0;
-      fetchServer();
-    });
-    
+  public handleClick() {
+    this.serverStatus.nativeElement.className = "loading";
+    this.fetchServer(0);
   }
 }

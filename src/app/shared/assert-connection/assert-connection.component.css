@@ -2,30 +2,17 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    background-color: white;
-    padding: 16px 32px;
-    padding-top: 24px;
-    border-radius: 16px;
-    border: gray solid 1px;
-    overflow: hidden;
+    padding: 4px 16px;
+    /*padding-bottom: 8px;*/
+    background-color: var(--color-1);
+    border: var(--color-2) solid 2px;
+    border-bottom-width: 8px;
 
     display: none;
     margin: 16px -100%;
     
     flex-direction: row;
     gap: 8px;
-
-
-
-    &::after {
-        content: "";
-        width: 100%;
-        height: 16px;
-        background-color: var(--thirdy-color);
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
 }
 
 #attempts {
@@ -42,7 +29,7 @@
 
     --diameter: 16px;
     --border: 8px;
-    background-color: white;
+    background-color: var(--color-1);
     box-shadow: rgba(0, 0, 0, 0.5) 0 0 4px;
     width: var(--diameter);
     height: var(--diameter);
@@ -59,7 +46,7 @@
         --size: calc( var(--diameter) + var(--border));
         width: var(--size);
         height: var(--size);
-        background-color: gray;
+        background-color: var(--color-2);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -103,6 +90,7 @@
 .give-up {
     --diameter: 16px;
     --border: 8px;
+    pointer-events: all;
     background-color: #cd3f4d;
     box-shadow: rgba(0, 0, 0, 0.5) 0 0 4px;
     width: 24px;

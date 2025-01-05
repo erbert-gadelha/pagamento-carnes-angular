@@ -2,5 +2,5 @@
 <div #myAssertConnection id="myAssertConnection" class="flex-center">
     <p>Conectando ao servidor</p>
     <p id="attempts">{{attempts}}</p>
-    <span #serverStatus class="loading"></span>
+    <span #serverStatus class="loading" (click)="handleClick()"></span>
 </div>
