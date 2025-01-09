@@ -126,16 +126,14 @@
       display: flex;
       gap: 16px;
       padding: 16px;
-      flex-wrap: wrap;
+      flex-direction: row;
 
 
       div {
         position: relative;
         border: var(--color-2) 2px solid;
-        /*padding: 4px 8px;*/
         padding-bottom: 48px;
         background-color: var(--color-0);
-        min-width: 470px;
         flex: 1;
         * {
           font-family: 'Times New Roman', Times, serif;
@@ -163,6 +161,13 @@
       }
     }
 
+  }
+
+
+  @media (max-width: 1000px) {
+    .descricao {
+      flex-direction: column !important;
+    }
   }
   
   
