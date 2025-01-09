@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-forum',
@@ -7,11 +7,13 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
   templateUrl: './forum.component.html',
   styleUrl: './forum.component.css'
 })
-export class ForumComponent implements OnInit{
+export class ForumComponent  implements OnInit{
 
 
   @ViewChild('textarea') textarea: ElementRef | any;
   @ViewChild('messages') messages: ElementRef | any;
+
+  constructor(private renderer: Renderer2) {}
 
   private lastMessage:Message|null|undefined = undefined;
   private lastElement:Element|null = null;
@@ -31,6 +33,7 @@ export class ForumComponent implements OnInit{
     const messages = [
       {sender:'Fulano', value:"Olá, aspirantes!"},
       {sender:'Fulano', value:"Dale Comparça!"},
+      {sender:'Fulano', value:"da!"},
       {sender:'Sicrano', value:"Tu gosta de peixe, boy?"}
     ];
 
@@ -38,14 +41,22 @@ export class ForumComponent implements OnInit{
   }
 
   public createElement(message:Message):Element {
-    const element = document.createElement("div");
-    if(message.sender)
-      element.innerHTML = `<h4>${message.sender}</h4> <span>${message.value}</span>`;
-    else {
-      element.innerHTML = `<span>${message.value}</span>`;
-      element.classList.add("mine");
+    const element = this.renderer.createElement('div');
+
+    // Adiciona conteúdo condicionalmente
+    if (message.sender) {
+      const sender = this.renderer.createElement('h4');
+      const text = this.renderer.createText(message.sender);
+      this.renderer.appendChild(sender, text);
+      this.renderer.appendChild(element, sender);
     }
-    element.classList.add("message");
+
+    const messageText = this.renderer.createText(message.value);
+    this.renderer.appendChild(element, messageText);
+
+    this.renderer.addClass(element, 'message');
+    if (!message.sender)
+      this.renderer.addClass(element, 'mine');
 
     return element;
   }
@@ -63,7 +74,8 @@ export class ForumComponent implements OnInit{
     }
 
     const container = this.messages.nativeElement;
-    container.insertBefore(element, container.firstChild);
+    this.renderer.insertBefore(container, element, container.firstChild);
+    //container.insertBefore(element, container.firstChild);
     this.lastFetchedMessage = message;
     this.lastFetchedElement = element;
   }
@@ -79,7 +91,9 @@ export class ForumComponent implements OnInit{
       element.classList.add("footer-message");
     }
 
-    this.messages.nativeElement.appendChild(element);
+    //this.messages.nativeElement.appendChild(element);
+    const container:Element = this.messages.nativeElement;
+    this.renderer.appendChild(container, element);
     this.messages.nativeElement.scrollTo({ top: this.messages.nativeElement.scrollHeight, behavior: "instant" });
     this.lastMessage = message;
     this.lastElement = element;   

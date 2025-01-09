@@ -4,9 +4,9 @@
     </div>
 
     <div id="container">
-        <button id="load-messages" (click)="fetchMessages()">carregar menssagens</button>
+        <button id="load-messages" (click)="fetchMessages()">carregar mensagens</button>
 
-        <div #messages id="messages">
+        <div #messages id="messages" class="styled-scroll">
         </div>
         <div id="inputs">
             <input #textarea (keydown.enter)="submit()"/>

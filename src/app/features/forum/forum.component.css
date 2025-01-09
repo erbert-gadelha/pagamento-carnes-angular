@@ -70,7 +70,7 @@ section {
         background-color: var(--color-0);
         display: flex;
         flex-direction: column;
-        overflow-y: scroll;
+        overflow-y: auto;
         padding: 8px 16px;
         --border-radius: 16px;
 
@@ -112,6 +112,12 @@ section {
                 }
             }
 
+            &:not(.header-message) {
+                h4 {
+                    display: none;
+                }
+            }
+
             &.footer-message:not(.header-message) {
                 margin-bottom: 4px;
                 &:after{
@@ -119,8 +125,9 @@ section {
                 }                
             }
 
-            &.footer-message {
-                &.header-message {
+            &.header-message {
+                margin-top: 4px;
+                &.footer-message {
                     &:after{
                         border-radius: var(--border-radius);
                     }
@@ -172,9 +179,14 @@ section {
 
         button {            
             cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.25);
             span {
                 padding: 8px;
-                background-color: var(--color-1);
+                color: var(--color-1);
+
+                &:hover {
+                    opacity: .7;
+                }
             }
         }
     }
