@@ -32,7 +32,8 @@ section {
 
 #container {
     z-index: 1;
-    height: calc(100vh - 64px);
+    height: 100svh;
+    height: calc(100svh - 64px);
     width: 100%;
     max-width: 800px;
     max-height: 700px;
