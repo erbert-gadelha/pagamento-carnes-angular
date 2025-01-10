@@ -1,4 +1,5 @@
 import { Component, ElementRef, Renderer2, OnInit, ViewChild } from '@angular/core';
+import { ServerService } from '../../service/server.service';
 
 @Component({
   selector: 'app-forum',
@@ -15,32 +16,39 @@ export class ForumComponent  implements OnInit{
 
   constructor(private renderer: Renderer2) {}
 
-  private lastMessage:Message|null|undefined = undefined;
+  private lastMessage:MessageDTO|null|undefined = undefined;
   private lastElement:Element|null = null;
 
-  private lastFetchedMessage:Message|null = null;
+  private lastFetchedMessage:MessageDTO|null = null;
   private lastFetchedElement:Element|null = null;
 
+  private lastIndex:number = 0; 
+
+
+  async getLastIndex () {
+    const response1:Response|null = await ServerService.fetch('api/v1/messages','GET', null);
+    this.lastIndex = Number.parseInt(await response1?.json().then((data) => data));
+    console.log("lastIndex", this.lastIndex);
+
+    this.fetchMessages();
+  }
+
+  async fetchMessages() {
+    const response2:Response|null = await ServerService.fetch(`api/v1/messages/${this.lastIndex}`,'GET', null);
+    const messages:string[] = await response2?.json().then((data) => data);
+
+    const messageDTOs:MessageDTO[] = messages.map(message => { return JSON.parse(message)}).reverse();
+    messageDTOs.forEach(message => this.loadMessage(message));
+    messageDTOs.forEach(message => console.log(message));
+    this.lastIndex = this.lastIndex - 5;
+  }
+
+
   ngOnInit(): void {
-    setTimeout(() => {
-        this.fetchMessages();
-        this.createMessage({sender:null, value:"Gosto não, boy."});
-    }, 200);
-
+    this.getLastIndex();
   }
 
-  public fetchMessages(): void {
-    const messages = [
-      {sender:'Fulano', value:"Olá, aspirantes!"},
-      {sender:'Fulano', value:"Dale Comparça!"},
-      {sender:'Fulano', value:"da!"},
-      {sender:'Sicrano', value:"Tu gosta de peixe, boy?"}
-    ];
-
-    messages.forEach(message => this.loadMessage(message))
-  }
-
-  public createElement(message:Message):Element {
+  public createElement(message:MessageDTO):Element {
     const element = this.renderer.createElement('div');
 
     // Adiciona conteúdo condicionalmente
@@ -51,7 +59,7 @@ export class ForumComponent  implements OnInit{
       this.renderer.appendChild(element, sender);
     }
 
-    const messageText = this.renderer.createText(message.value);
+    const messageText = this.renderer.createText(message.content);
     this.renderer.appendChild(element, messageText);
 
     this.renderer.addClass(element, 'message');
@@ -62,7 +70,7 @@ export class ForumComponent  implements OnInit{
   }
 
 
-  public loadMessage(message:Message): void {
+  public loadMessage(message:MessageDTO): void {
     const element:Element = this.createElement(message);
 
     if(this.lastFetchedMessage?.sender != message.sender) {
@@ -80,7 +88,7 @@ export class ForumComponent  implements OnInit{
     this.lastFetchedElement = element;
   }
 
-  public createMessage(message:Message):void {
+  public createMessage(message:MessageDTO):void {
     const element:Element = this.createElement(message);
 
     if(this.lastMessage?.sender !== message.sender) {
@@ -109,12 +117,12 @@ export class ForumComponent  implements OnInit{
       return;
 
     this.textarea.nativeElement.value = null;
-    this.createMessage({sender:null, value:value});
+    this.createMessage({sender:null, content:value});
   }
 
 }
 
-interface Message {
+interface MessageDTO {
   sender:string|null,
-  value:string
+  content:string
 }
