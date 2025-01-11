@@ -1,6 +1,7 @@
 import { Component, ElementRef, Renderer2, OnInit, ViewChild } from '@angular/core';
 import { ServerService } from '../../service/server.service';
 import { UserService } from '../../service/user.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-forum',
@@ -49,7 +50,7 @@ export class ForumComponent  implements OnInit{
   }
 
   async messageWebsocket() {
-    this.socket = new WebSocket("ws://localhost:8080/ws");
+    this.socket = new WebSocket(`${environment.apiWebsocket}`);
 
     this.socket.onopen = () => {
         console.log("Conexão estabelecida")    
