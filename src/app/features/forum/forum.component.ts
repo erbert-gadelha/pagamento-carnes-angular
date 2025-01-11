@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, OnInit, ViewChild } from '@angular/core';
 import { ServerService } from '../../service/server.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-forum',
@@ -22,7 +23,8 @@ export class ForumComponent  implements OnInit{
   private lastFetchedMessage:MessageDTO|null = null;
   private lastFetchedElement:Element|null = null;
 
-  private lastIndex:number = 0; 
+  private lastIndex:number = 0;
+  private socket:WebSocket|null = null;
 
 
   async getLastIndex () {
@@ -34,6 +36,9 @@ export class ForumComponent  implements OnInit{
   }
 
   async fetchMessages() {
+    if(this.lastIndex < 0)
+      return;
+
     const response2:Response|null = await ServerService.fetch(`api/v1/messages/${this.lastIndex}`,'GET', null);
     const messages:string[] = await response2?.json().then((data) => data);
 
@@ -43,9 +48,39 @@ export class ForumComponent  implements OnInit{
     this.lastIndex = this.lastIndex - 5;
   }
 
+  async messageWebsocket() {
+    this.socket = new WebSocket("ws://localhost:8080/ws");
+
+    this.socket.onopen = () => {
+        console.log("Conexão estabelecida")    
+        this.socket?.send("SUBSCRIBE /topic/news");    
+    };    
+    this.socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        this.createMessage(data);
+    }
+    this.socket.onerror = (error) => {
+      console.error("Erro:", error)
+      setTimeout(this.messageWebsocket, 1000);
+    };
+    this.socket.onclose = () => console.log("Conexão fechada");    
+    
+    
+  }
+
+  public sendMessage(message:string):void {
+    this.socket?.send("SEND /topic/news " + JSON.stringify({
+        sender: UserService.getUser()?.login,
+        content: message
+    }));
+  }
+
+
+
 
   ngOnInit(): void {
     this.getLastIndex();
+    this.messageWebsocket();
   }
 
   public createElement(message:MessageDTO):Element {
@@ -63,7 +98,7 @@ export class ForumComponent  implements OnInit{
     this.renderer.appendChild(element, messageText);
 
     this.renderer.addClass(element, 'message');
-    if (!message.sender)
+    if (message.sender == UserService.getUser()?.login)
       this.renderer.addClass(element, 'mine');
 
     return element;
@@ -117,7 +152,8 @@ export class ForumComponent  implements OnInit{
       return;
 
     this.textarea.nativeElement.value = null;
-    this.createMessage({sender:null, content:value});
+    this.sendMessage(value);
+    //this.createMessage({sender:null, content:value});
   }
 
 }
